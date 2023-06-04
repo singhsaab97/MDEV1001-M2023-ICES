@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 		movies.forEach {
 			database.movieDao().insertMovie(it)
 		}
-		val savedMovies = database.movieDao().getAllMovies()
 		// Init recycler view
 		val recyclerView = findViewById<RecyclerView>(R.id.moviesRecyclerView)
 		recyclerView.apply {
