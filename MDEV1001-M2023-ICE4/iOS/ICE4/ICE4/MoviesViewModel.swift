@@ -73,7 +73,7 @@ private extension MoviesViewModel {
             movie.year = object["year"] as? Int16 ?? .zero
             movie.length = object["length"] as? Int16 ?? .zero
             movie.short_description = object["shortDescription"] as? String
-            movie.mpa_rating = object["mpaRating"] as? Double ?? .zero
+            movie.mpa_rating = object["mpaRating"] as? String
             movie.critics_rating = object["criticsRating"] as? Double ?? .zero
         }
         if context.hasChanges {

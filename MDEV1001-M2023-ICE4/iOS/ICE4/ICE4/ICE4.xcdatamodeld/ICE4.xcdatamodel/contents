@@ -7,7 +7,7 @@
         <attribute name="genres" attributeType="String"/>
         <attribute name="length" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="movie_id" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="mpa_rating" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="mpa_rating" attributeType="String"/>
         <attribute name="short_description" optional="YES" attributeType="String"/>
         <attribute name="studio" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
