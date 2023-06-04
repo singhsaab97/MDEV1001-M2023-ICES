@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "ICE2Connection",
+            "database": "/Users/abhijit/Documents/MDEV/Mobile Data Management (MDEV1001)/MDEV1001-M2023-ICES/MDEV1001-M2023-ICE2/ICE2DB"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
