@@ -16,7 +16,7 @@ class AddMovieActivity: AppCompatActivity() {
 	}
 
 	private fun setup() {
-		movie = intent.getSerializableExtra("Data") as Movie
+		movie = intent.getSerializableExtra("Data") as? Movie
 		val addButton = findViewById<Button>(R.id.addButton)
 		if (movie == null) {
 			addButton.text = "Add Movie"
