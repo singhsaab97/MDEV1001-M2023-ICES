@@ -1,35 +1,87 @@
 package com.kanwarabhijitsingh.ice5
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.IOException
 import java.nio.charset.Charset
 import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
+	private var mAdapter: MoviesAdapter? = null
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		setup()
+	}
 
-		// Setup database
-		val database = Room.databaseBuilder(this, MovieDatabase::class.java, "movie_database")
-			.allowMainThreadQueries()
-			.build()
+	override fun onResume() {
+		super.onResume()
+		val movies = MovieDatabase(this@MainActivity).movieDao().getAllMovies()
+		mAdapter = MoviesAdapter()
+		val recyclerView = findViewById<RecyclerView>(R.id.moviesRecyclerView)
+		recyclerView.apply {
+			layoutManager = LinearLayoutManager(this@MainActivity)
+			adapter = mAdapter
+			setAdapter(movies)
+			mAdapter?.setDeleteActionListener { movie ->
+				val builder = AlertDialog.Builder(this@MainActivity)
+				builder.setTitle("Delete " + movie.title + "?")
+				builder.setMessage("This action will delete it from the database permanently.")
+				builder.setPositiveButton("Delete") { alert, _ ->
+					MovieDatabase(this@MainActivity).movieDao().deleteMovie(movie)
+					val movies = MovieDatabase(this@MainActivity).movieDao().getAllMovies()
+					setAdapter(movies)
+					alert.dismiss()
+				}
+				builder.setNegativeButton("Cancel") { alert, _ ->
+					alert.dismiss()
+				}
+				builder.create().show()
+			}
+			mAdapter?.setEditActionListener {
+				val intent = Intent(this@MainActivity, AddMovieActivity::class.java)
+				intent.putExtra("Data", it)
+				startActivity(intent)
+			}
+		}
+	}
+
+	private fun setup() {
+		val database = MovieDatabase(this)
 		// Fetch movies
-		val movies = parseJsonFileToMovies(database)
-		movies.forEach {
-			database.movieDao().insertMovie(it)
+		var savedMovies = database.movieDao().getAllMovies()
+		if (savedMovies.isEmpty()) {
+			val movies = parseJsonFileToMovies(database)
+			savedMovies = movies
+			movies.forEach {
+				database.movieDao().addMovie(it)
+			}
 		}
 		// Init recycler view
 		val recyclerView = findViewById<RecyclerView>(R.id.moviesRecyclerView)
 		recyclerView.apply {
 			layoutManager = LinearLayoutManager(this@MainActivity)
-			adapter = MoviesAdapter(movies)
+			adapter = MoviesAdapter().apply {
+				reset(savedMovies)
+			}
 		}
+		// Add click listener
+		val addButton = findViewById<FloatingActionButton>(R.id.addButton)
+		addButton.setOnClickListener {
+			val intent = Intent(this, AddMovieActivity::class.java)
+			startActivity(intent)
+		}
+	}
+
+	private fun setAdapter(movies: List<Movie>) {
+		mAdapter?.reset(movies)
 	}
 
 	private fun parseJsonFileToMovies(db: MovieDatabase): List<Movie> {
@@ -46,12 +98,7 @@ class MainActivity : AppCompatActivity() {
 		}
 		// Return movies list
 		val gson = Gson()
-		val list = gson.fromJson(json, Array<Movie>::class.java).toList()
-		val savedMovies = db.movieDao().getAllMovies()
-		if (list.any { it in savedMovies }) {
-			return emptyList()
-		}
-		return list
+		return gson.fromJson(json, Array<Movie>::class.java).toList()
 	}
 
 }

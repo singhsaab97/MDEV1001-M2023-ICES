@@ -1,9 +1,6 @@
 package com.kanwarabhijitsingh.ice5
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MovieDao {
@@ -11,5 +8,11 @@ interface MovieDao {
 	fun getAllMovies(): List<Movie>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	fun insertMovie(movie: Movie)
+	fun addMovie(movie: Movie)
+
+	@Update
+	fun updateMovie(movie: Movie)
+
+	@Delete
+	fun deleteMovie(movie: Movie)
 }

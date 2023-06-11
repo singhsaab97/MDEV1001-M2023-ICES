@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14221014492753623" />
-        <entry key="app/src/main/res/layout/movie_row.xml" value="0.24251517892997956" />
+        <entry key="../../../../../../Library/Android/sdk/platforms/android-33/android.jar!/res/layout/screen_toolbar.xml" value="0.14221014492753623" />
+        <entry key="app/src/main/res/drawable-v24/ic_add.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_add_movie.xml" value="0.19941558837890627" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33035278320312506" />
+        <entry key="app/src/main/res/layout/movie_row.xml" value="0.43198394775390625" />
       </map>
     </option>
   </component>

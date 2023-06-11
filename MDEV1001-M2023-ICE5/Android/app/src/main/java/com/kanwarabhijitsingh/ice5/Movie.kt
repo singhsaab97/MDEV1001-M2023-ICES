@@ -3,10 +3,11 @@ package com.kanwarabhijitsingh.ice5
 import android.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class Movie(
-	@PrimaryKey(autoGenerate = true) val id: Int = 0,
+	@PrimaryKey(autoGenerate = true) var id: Int = 0,
 	val title: String,
 	val studio: String,
 	val genres: String,
@@ -18,7 +19,7 @@ data class Movie(
 	val shortDescription: String?,
 	val mpaRating: String,
 	val criticsRating: Double
-) {
+): Serializable {
 
 	val ratingColor: Int get() {
 		if (criticsRating >= 8) {
