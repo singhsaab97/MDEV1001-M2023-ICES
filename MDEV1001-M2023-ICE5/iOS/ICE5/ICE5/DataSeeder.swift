@@ -1,6 +1,6 @@
 //
 //  DataSeeder.swift
-//  MDEV1001-M2023-ICE5
+//  ICE5
 //
 //  Created by Abhijit Singh on 2023-05-31.
 //
@@ -35,7 +35,7 @@ func seedData() {
     for jsonObject in jsonArray {
         let movie = Movie(context: context)
         
-        movie.movieID = jsonObject["movieID"] as? Int16 ?? 0
+        movie.movieid = jsonObject["movieID"] as? Int16 ?? 0
         movie.title = jsonObject["title"] as? String
         movie.studio = jsonObject["studio"] as? String
         movie.genres = jsonObject["genres"] as? String
