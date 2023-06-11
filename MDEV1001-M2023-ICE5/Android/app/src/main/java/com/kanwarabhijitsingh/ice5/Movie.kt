@@ -1,5 +1,6 @@
 package com.kanwarabhijitsingh.ice5
 
+import android.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -17,4 +18,15 @@ data class Movie(
 	val shortDescription: String?,
 	val mpaRating: String,
 	val criticsRating: Double
-)
+) {
+
+	val ratingColor: Int get() {
+		if (criticsRating >= 8) {
+			return Color.GREEN
+		} else if (criticsRating >= 7) {
+			return  Color.YELLOW
+		}
+		return Color.RED
+	}
+
+}
