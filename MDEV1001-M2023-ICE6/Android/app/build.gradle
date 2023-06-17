@@ -8,7 +8,7 @@ android {
 	compileSdk 33
 
 	defaultConfig {
-		applicationId "com.kanwarabhijitsingh.ice5"
+		applicationId "com.kanwarabhijitsingh.ice6"
 		minSdk 21
 		targetSdk 32
 		versionCode 1

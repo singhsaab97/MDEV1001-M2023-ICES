@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="20dp"
+	android:orientation="vertical"
+	android:gravity="center"
+	tools:context=".LoginActivity" >
+
+	<EditText
+		android:id="@+id/username"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Username"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/password"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Password"
+		android:layout_marginBottom="6dp" />
+
+	<Button
+		android:id="@+id/loginButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:text="Login" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="40dp"
+		android:text="Are you a first time user? Kindly register below" />
+
+	<Button
+		android:id="@+id/registerButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:text="Register" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
