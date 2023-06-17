@@ -3,6 +3,8 @@ package com.kanwarabhijitsingh.ice6
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +52,33 @@ class MoviesActivity: AppCompatActivity() {
 				intent.putExtra("Data", it)
 				startActivity(intent)
 			}
+		}
+	}
+
+	override fun onCreateOptionsMenu(menu: Menu): Boolean {
+		menuInflater.inflate(R.menu.menu_movies, menu)
+		return true
+	}
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		return when (item.itemId) {
+			R.id.logoutButton -> {
+				val builder = AlertDialog.Builder(this@MoviesActivity)
+				builder.setTitle("Logout")
+				builder.setMessage("Are you sure you want to log out?")
+				builder.setPositiveButton("Yes") { alert, _ ->
+					alert.dismiss()
+					finish()
+					val intent = Intent(this, LoginActivity::class.java)
+					startActivity(intent)
+				}
+				builder.setNegativeButton("No") { alert, _ ->
+					alert.dismiss()
+				}
+				builder.create().show()
+				true
+			}
+			else -> super.onOptionsItemSelected(item)
 		}
 	}
 
@@ -102,4 +131,3 @@ class MoviesActivity: AppCompatActivity() {
 	}
 
 }
-

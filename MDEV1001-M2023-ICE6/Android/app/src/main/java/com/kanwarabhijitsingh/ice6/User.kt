@@ -2,6 +2,7 @@ package com.kanwarabhijitsingh.ice6
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class User(
@@ -11,4 +12,4 @@ data class User(
 	val username: String,
 	val email: String?,
 	val password: String
-)
+): Serializable

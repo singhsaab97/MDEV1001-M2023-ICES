@@ -15,6 +15,11 @@ class LoginActivity: AppCompatActivity() {
 		setup()
 	}
 
+	override fun onResume() {
+		super.onResume()
+		focusUsername()
+	}
+
 	private fun setup() {
 		val loginButton = findViewById<Button>(R.id.loginButton)
 		loginButton.setOnClickListener {
@@ -26,6 +31,12 @@ class LoginActivity: AppCompatActivity() {
 			val intent = Intent(this, RegisterActivity::class.java)
 			startActivity(intent)
 		}
+		focusUsername()
+	}
+
+	private fun focusUsername() {
+		val username = findViewById<EditText>(R.id.username)
+		username.requestFocus()
 	}
 
 	private fun validateCredentials() {

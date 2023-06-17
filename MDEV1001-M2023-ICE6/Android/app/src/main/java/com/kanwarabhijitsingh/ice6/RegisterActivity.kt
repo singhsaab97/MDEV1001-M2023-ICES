@@ -1,5 +1,6 @@
 package com.kanwarabhijitsingh.ice6
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +20,8 @@ class RegisterActivity: AppCompatActivity() {
 		registerButton.setOnClickListener {
 			tryAddingNewUser()
 		}
+		val firstName = findViewById<EditText>(R.id.firstName)
+		firstName.requestFocus()
 	}
 
 	private fun tryAddingNewUser() {
