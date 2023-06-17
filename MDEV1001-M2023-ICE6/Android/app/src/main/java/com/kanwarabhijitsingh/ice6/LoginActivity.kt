@@ -20,25 +20,31 @@ class LoginActivity: AppCompatActivity() {
 		loginButton.setOnClickListener {
 			validateCredentials()
 		}
+		val registerButton = findViewById<Button>(R.id.registerButton)
+		registerButton.setOnClickListener {
+			// Show registration screen
+			val intent = Intent(this, RegisterActivity::class.java)
+			startActivity(intent)
+		}
 	}
 
 	private fun validateCredentials() {
-		val username = findViewById<EditText>(R.id.username)
-		val password = findViewById<EditText>(R.id.password)
-		if (username.text.isEmpty()) {
+		val username = findViewById<EditText>(R.id.username).text.toString()
+		val password = findViewById<EditText>(R.id.password).text.toString()
+		if (username.isEmpty()) {
 			showAlert(null, "Username is required")
-		} else if (password.text.isEmpty()) {
+		} else if (password.isEmpty()) {
 			showAlert(null, "Password is required")
 		} else {
 			// Check if this user exists
 			val database = UserDatabase(this)
-			val isValidUser = database.userDao().countUser(username.text.toString(), password.text.toString()) > 0
+			val isValidUser = database.userDao().countUser(username, password) > 0
 			if (isValidUser) {
 				// Show movies screen
 				val intent = Intent(this, MoviesActivity::class.java)
 				startActivity(intent)
 			} else {
-				showAlert("Invalid login credentials", "Please register a new user and try again")
+				showAlert("Invalid login credentials", "Please check the details and try again")
 			}
 		}
 	}

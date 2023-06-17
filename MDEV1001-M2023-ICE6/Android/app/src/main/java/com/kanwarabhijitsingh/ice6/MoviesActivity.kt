@@ -33,7 +33,7 @@ class MoviesActivity: AppCompatActivity() {
 			mAdapter?.setDeleteActionListener { movie ->
 				val builder = AlertDialog.Builder(this@MoviesActivity)
 				builder.setTitle("Delete " + movie.title + "?")
-				builder.setMessage("This action will delete it from the database permanently.")
+				builder.setMessage("This action will delete it from the database permanently")
 				builder.setPositiveButton("Delete") { alert, _ ->
 					MovieDatabase(this@MoviesActivity).movieDao().deleteMovie(movie)
 					val movies = MovieDatabase(this@MoviesActivity).movieDao().getAllMovies()
