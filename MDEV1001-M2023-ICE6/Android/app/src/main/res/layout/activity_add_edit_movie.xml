@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="20dp"
+	android:orientation="vertical"
+	android:gravity="top|center"
+	tools:context=".AddEditMovieActivity" >
+
+	<EditText
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Title"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/studio"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Studio"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/genres"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Genres"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/directors"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Directors"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/writers"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Writers"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/actors"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Actors"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/year"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Year"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/length"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Length"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/description"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Description"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/mpaRating"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="MPA rating"
+		android:layout_marginBottom="6dp" />
+
+	<EditText
+		android:id="@+id/criticsRating"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:hint="Critics rating"
+		android:layout_marginBottom="6dp" />
+
+	<Button
+		android:id="@+id/addButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:text="Add Movie" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
