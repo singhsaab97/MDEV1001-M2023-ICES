@@ -9,7 +9,7 @@ import UIKit
 
 final class MoviesViewController: UIViewController {
     
-    static let identifier = String(describing: MoviesViewController.self)
+    static let identifier = Constants.moviesViewControllerIdentifier
     
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var spinnerView: UIActivityIndicatorView!
