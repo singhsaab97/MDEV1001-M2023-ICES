@@ -19,7 +19,7 @@ object RetrofitClient {
 		.baseUrl(BASE_URL)
 		.client(
 			OkHttpClient.Builder()
-				.connectTimeout(TIMEOUT, TimeUnit.SECONDS) // Increase timeout here
+				.connectTimeout(TIMEOUT, TimeUnit.SECONDS)
 				.build()
 		)
 		.addConverterFactory(MoshiConverterFactory.create(moshi))

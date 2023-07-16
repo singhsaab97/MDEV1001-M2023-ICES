@@ -1,6 +1,7 @@
 package com.kanwarabhijitsingh.ice8
 
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 data class Movie(
 	@Json(name = "_id") val id: String,
@@ -15,6 +16,5 @@ data class Movie(
 	val length: Int,
 	@Json(name = "shortDescription") val description: String?,
 	val mpaRating: String,
-	val criticsRating: Double,
-	var isExpanded: Boolean = false
-)
+	val criticsRating: Double
+): Serializable
