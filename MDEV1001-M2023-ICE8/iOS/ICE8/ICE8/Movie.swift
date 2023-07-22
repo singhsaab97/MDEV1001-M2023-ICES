@@ -1,14 +1,14 @@
 //
 //  Movie.swift
-//  ICE8
+//  ICE9
 //
-//  Created by Abhijit Singh on 2023-07-05.
+//  Created by Abhijit Singh on 2023-07-22.
 //
 
 struct Movie: Codable
 {
     let _id: String
-    let movieID: String
+    let movieID: String?
     let title: String
     let studio: String
     let genres: [String]

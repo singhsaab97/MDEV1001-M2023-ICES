@@ -1,22 +1,50 @@
 //
 //  MovieCRUDViewController.swift
-//  ICE8
+//  ICE9
 //
-//  Created by Abhijit Singh on 2023-07-05.
+//  Created by Abhijit Singh on 2023-07-22.
 //
 
 import UIKit
 
+struct UpdatedResponse: Codable
+{
+    let lastUpdated: Int
+}
+
 class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableViewDataSource
 {
     @IBOutlet weak var tableView: UITableView!
-        
+    
     var movies: [Movie] = []
+    var timer: Timer?
+    var lastUpdated: Int = 0
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        self.lastUpdated = Int(Date().timeIntervalSince1970 * 1000)
+        
+        fetchMoviesAndUpdateUI()
+        startPollingForUpdates()
+    }
+    
+    func startPollingForUpdates() {
+        stopPollingForUpdates() // Stop any existing timers
+        
+        // Schedule a timer to check for updates every 5 seconds
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.checkForUpdates()
+        }
+    }
+    
+    func stopPollingForUpdates() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func fetchMoviesAndUpdateUI() {
         fetchMovies { [weak self] movies, error in
             DispatchQueue.main.async
             {
@@ -44,6 +72,35 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func checkForUpdates()
+    {
+        guard let url = URL(string: "https://mdev1001-m2023-api.onrender.com/api/has-updates") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            if let error = error {
+                print("Error checking for updates: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                
+                let response = try JSONDecoder().decode(UpdatedResponse.self, from: data)
+                if self!.lastUpdated < response.lastUpdated {
+                    self!.lastUpdated = response.lastUpdated
+                    self?.fetchMoviesAndUpdateUI()
+                }
+            } catch {
+                print("Error decoding update response: \(error)")
+            }
+        }.resume()
+    }
+    
     func displayErrorMessage(_ message: String)
     {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
@@ -58,18 +115,18 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
             completion(nil, nil) // Handle URL error
             return
         }
-
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 completion(nil, error) // Handle network error
                 return
             }
-
+            
             guard let data = data else {
                 completion(nil, nil) // Handle empty response
                 return
             }
-
+            
             do {
                 let movies = try JSONDecoder().decode([Movie].self, from: data)
                 completion(movies, nil) // Success
@@ -78,8 +135,8 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }.resume()
     }
-
-
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return movies.count
@@ -88,17 +145,17 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTableViewCell
-                        
-                
+        
+        
         let movie = movies[indexPath.row]
-                        
+        
         cell.titleLabel?.text = movie.title
         cell.studioLabel?.text = movie.studio
         cell.ratingLabel?.text = "\(movie.criticsRating)"
-                
+        
         // Set the background color of criticsRatingLabel based on the rating
         let rating = movie.criticsRating
-                           
+        
         if rating > 7
         {
             cell.ratingLabel.backgroundColor = UIColor.green
@@ -118,21 +175,21 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
     {
         performSegue(withIdentifier: "AddEditSegue", sender: indexPath)
     }
-        
+    
     // Swipe Left Gesture
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle == .delete
         {
-            if editingStyle == .delete
+            let movie = movies[indexPath.row]
+            ShowDeleteConfirmationAlert(for: movie) { confirmed in
+                if confirmed
                 {
-                    let movie = movies[indexPath.row]
-                    ShowDeleteConfirmationAlert(for: movie) { confirmed in
-                        if confirmed
-                        {
-                            self.deleteMovie(at: indexPath)
-                        }
-                    }
+                    self.deleteMovie(at: indexPath)
                 }
+            }
         }
+    }
     
     @IBAction func AddButton_Pressed(_ sender: UIButton)
     {
@@ -145,13 +202,12 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
         {
             if let addEditVC = segue.destination as? AddEditMovieViewController
             {
-                addEditVC.modalPresentationStyle = .fullScreen
                 addEditVC.movieViewController = self
                 if let indexPath = sender as? IndexPath
                 {
-                   // Editing existing movie
-                   let movie = movies[indexPath.row]
-                   addEditVC.movie = movie
+                    // Editing existing movie
+                    let movie = movies[indexPath.row]
+                    addEditVC.movie = movie
                 } else {
                     // Adding new movie
                     addEditVC.movie = nil
@@ -195,28 +251,28 @@ class MovieCRUDViewController: UIViewController, UITableViewDelegate, UITableVie
     func deleteMovie(at indexPath: IndexPath)
     {
         let movie = movies[indexPath.row]
-
+        
         guard let url = URL(string: "https://mdev1001-m2023-api.onrender.com/api/delete/\(movie._id)") else {
             print("Invalid URL")
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
-
+        
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             if let error = error {
                 print("Failed to delete movie: \(error)")
                 return
             }
-
+            
             DispatchQueue.main.async {
                 self?.movies.remove(at: indexPath.row)
                 self?.tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
-            
+        
         task.resume()
     }
-
+    
 }
