@@ -3,12 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_add_edit_movie.xml" value="0.14221014492753623" />
+        <entry key="app/src/main/res/layout/activity_add_edit_movie.xml" value="0.26581508515815083" />
         <entry key="app/src/main/res/layout/activity_movies.xml" value="0.14221014492753623" />
-        <entry key="app/src/main/res/layout/menu_movies.xml" value="0.14221014492753623" />
-        <entry key="app/src/main/res/layout/view_holder_movie.xml" value="0.5125503540039065" />
+        <entry key="app/src/main/res/layout/view_holder_movie.xml" value="0.14221014492753623" />
+        <entry key="app/src/main/res/menu/menu_movies.xml" value="0.22864583333333333" />
       </map>
     </option>
   </component>
